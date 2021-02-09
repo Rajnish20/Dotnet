@@ -1,0 +1,18 @@
+﻿@model IEnumerable<DapperDemo.Models.Employee>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Main Menu</h2>
+
+
+@Html.ActionLink("Display List Of Record", "GetRecord", "Default")
+<br />
+<br />
+@Html.ActionLink("Display Single Record", "GetId_1", "Default")
+<br />
+<br />
+@Html.ActionLink("Display Single Variable", "GetId", "Default")
+<br/><br/>
+@Html.ActionLink("Display Record From Multiple Table","MultipleRecord","Default")

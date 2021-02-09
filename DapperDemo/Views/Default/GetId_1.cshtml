@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "GetId_1";
+}
+
+<h2>Enter Id</h2>
+
+<html>
+<body>
+    <div>
+        <section>
+            @using (Html.BeginForm("SearchRecord", "Default"))
+            {
+                <input type="number" name="id" /> <br /> <br />
+                <input type="submit" value="search" />
+            }
+        </section>
+    </div>
+</body>
+</html>
