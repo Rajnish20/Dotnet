@@ -1,0 +1,45 @@
+﻿@model DapperDemo.Models.Employee
+
+@{
+    ViewBag.Title = "SearchRecord";
+}
+
+<h2>Record Details</h2>
+
+<div>
+    <h4>Employee</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.empno)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.empno)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nam)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nam)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dept)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dept)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Search Another Record", "GetId_1")
+    <br/>
+    <br/>
+
+    @Html.ActionLink("Back to Main Menu", "Index")
+</p>
