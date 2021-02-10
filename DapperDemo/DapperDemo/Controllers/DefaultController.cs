@@ -33,12 +33,19 @@ namespace DapperDemo.Controllers
         public ActionResult GetRecord()
         {
             List<Models.Employee> emp = new List<Models.Employee>();
-            using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["employeesConnection"].ConnectionString))
+            try
             {
-                emp = db.Query<Models.Employee>("prcEmpShow1",commandType: CommandType.StoredProcedure).ToList();
-            }
+                using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["employeesConnection"].ConnectionString))
+                {
+                    emp = db.Query<Models.Employee>("prcEmpShow1", commandType: CommandType.StoredProcedure).ToList();
+                }
 
-            return View(emp);
+                return View(emp);
+            }
+            catch(Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Models.Employee", "GetRecord"));
+            }
         }
         
 
