@@ -53,11 +53,18 @@ namespace DapperDemo.Controllers
         {
             
             Models.Employee emp = new Models.Employee();
-            using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["employeesConnection"].ConnectionString))
+            try
             {
-                emp = db.QueryFirstOrDefault<Models.Employee>("EmploySearch2", new { EmployeeId = id }, commandType: CommandType.StoredProcedure);
+                using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["employeesConnection"].ConnectionString))
+                {
+                    emp = db.QueryFirstOrDefault<Models.Employee>("EmploySearch2", new { EmployeeId = id }, commandType: CommandType.StoredProcedure);
+                }
+                return View(emp);
             }
-            return View(emp);
+            catch(Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Models.Employee", "SearchRecord"));
+            }
         }
 
         public ViewResult GetName(int id)
