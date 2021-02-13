@@ -13,4 +13,18 @@ namespace DapperDemo.Models
 
         public string dept { get; set; }
     }
+
+    public class student
+    {
+        public string nam { get; set; }
+
+        public string Sub2 { get; set; }
+    }
+
+
+    public class MasterDetails
+    {
+        public List<Employee> EmpPersonal { get; set; }
+        public List<student> StudPersonal { get; set; }
+    }
 }

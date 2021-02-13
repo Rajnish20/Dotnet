@@ -7,6 +7,8 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DapperDemo.Models;
+using DapperDemo.Repository;
 
 namespace DapperDemo.Controllers
 {
@@ -77,14 +79,17 @@ namespace DapperDemo.Controllers
             return View();
         }
 
-        public ActionResult MultipleRecord()
+        public ActionResult GetMultipleRecord()
         {
-            List<Models.Employee> ord = new List<Models.Employee>();
-            using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["employeesConnection"].ConnectionString))
-            {
-                ord = db.Query<Models.Employee>("getMultipleRecord", commandType: CommandType.StoredProcedure).ToList();
-            }
-            return View(ord);
+            DapperConn  objdet = new DapperConn();
+            MasterDetails data = new MasterDetails();
+
+            List<MasterDetails> masterData = objdet.GetMasterDetails().ToList();
+            data.EmpPersonal = masterData[0].EmpPersonal;
+            data.StudPersonal = masterData[0].StudPersonal;
+
+            return View(data);
+
         }
     }
 }

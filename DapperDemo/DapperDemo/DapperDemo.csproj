@@ -129,8 +129,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Employee.cs" />
-    <Compile Include="Models\OrderDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\DapperConn.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -174,7 +174,7 @@
     <Content Include="Views\Default\GetName.cshtml" />
     <Content Include="Views\Default\GetId.cshtml" />
     <Content Include="Views\Default\GetId_1.cshtml" />
-    <Content Include="Views\Default\MultipleRecord.cshtml" />
+    <Content Include="Views\Default\GetMultipleRecord.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
