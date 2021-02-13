@@ -1,10 +1,9 @@
 //Stored Procedure for etting Multiple Record
-ALTER proc [dbo].[getMultipleRecord]
+create proc multiplerecord_1
 AS
 BEGIN
-   select Nam,dept from EMp with (NOLOCK) WHERE dept = 'DotNet'
-   UNION
-   select Nam,dept from DEPARTMENT with (NOLOCK) WHERE dept = 'DotNet'
+  select empno,nam,dept from EMp with (NOLOCK)
+  Select nam,Sub2 from Student with (NOLOCK)
 END
 
 
