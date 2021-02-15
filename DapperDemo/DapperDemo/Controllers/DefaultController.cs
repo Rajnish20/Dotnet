@@ -71,24 +71,42 @@ namespace DapperDemo.Controllers
 
         public ViewResult GetName(int id)
         {
-            using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["employeesConnection"].ConnectionString))
+            try
             {
-               ViewBag.name  = db.QueryFirstOrDefault<string>("EmploySearch3", new { EmployeeId = id}, commandType: CommandType.StoredProcedure);
-            }
 
-            return View();
+
+                using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["employeesConnection"].ConnectionString))
+                {
+                    ViewBag.name = db.QueryFirstOrDefault<string>("EmploySearch3", new { EmployeeId = id }, commandType: CommandType.StoredProcedure);
+                }
+
+                return View();
+            }
+            catch(Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Models.Employee", "GetName"));
+            }
         }
 
         public ActionResult GetMultipleRecord()
         {
-            DapperConn  objdet = new DapperConn();
-            MasterDetails data = new MasterDetails();
+            try
+            {
 
-            List<MasterDetails> masterData = objdet.GetMasterDetails().ToList();
-            data.EmpPersonal = masterData[0].EmpPersonal;
-            data.StudPersonal = masterData[0].StudPersonal;
 
-            return View(data);
+                DapperConn objdet = new DapperConn();
+                MasterDetails data = new MasterDetails();
+
+                List<MasterDetails> masterData = objdet.GetMasterDetails().ToList();
+                data.EmpPersonal = masterData[0].EmpPersonal;
+                data.StudPersonal = masterData[0].StudPersonal;
+
+                return View(data);
+            }
+            catch(Exception ex)
+            {
+                return View("Error", new HandleErrorInfo(ex, "Models.GetMasterDetails", "GetMultipleRecord"));
+            }
 
         }
     }
