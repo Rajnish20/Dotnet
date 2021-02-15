@@ -6,13 +6,26 @@
 
 <h2>Main Menu</h2>
 
+<p>
+    Click to see the List of record
+</p>
+<input type="button" value="Display" onclick="location.href='@Url.Action("GetRecord", "Default")'" />
+<br />
+<br />
+<p>
+    Click to see single row
+</p>
+<input type="button" value="Search" onclick="location.href='@Url.Action("GetId_1", "Default")'" />
 
-@Html.ActionLink("Display List Of Record", "GetRecord", "Default")
 <br />
 <br />
-@Html.ActionLink("Display Single Record", "GetId_1", "Default")
-<br />
-<br />
-@Html.ActionLink("Display Single Variable", "GetId", "Default")
-<br/><br/>
-@Html.ActionLink("Display Record From Multiple Table","MultipleRecord","Default")
+<p>
+    Click to see single variable
+</p>
+<input type="button" value="Single Variable" onclick="location.href='@Url.Action("GetId","Default")'" />
+<br/>
+<br/>
+<p>
+    Click to see record from Multiple Table
+</p>
+<input type="button" value="Multiple Record" onclick="location.href='@Url.Action("GetMultipleRecord","Default")'" />
