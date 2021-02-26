@@ -11,16 +11,14 @@ def json_to_database(json_string):
     """This Function will push json data to Database"""
     conn = pyodbc.connect('DRIVER={SQL SERVER};'
 	                  'SERVER=DESKTOP-38KI29F;'
-	                  'Database=sqlpractice;'
+	                  'Database=master;'
 	                  'TRUSTED CONNECTION=yes;')
+    conn.autocommit = True
     if conn is not None:
         cursor = conn.cursor()
-        cursor.execute('EXEC prcData @json = ?', json_string)  # Passing Json Data to DataBase through Stored Procedure(prcData)
-       
-        conn.close()
-        
+        cursor.execute('EXEC prcData @json = ?', json_string)
         print(' Data Inserted\n')
-        return True
+        conn.close()
     else:
         print('Error : %s' % 'Data Not Inserted Due to pyodbc Exception')
 
@@ -31,9 +29,9 @@ def JsonStringSerialize(dataDictionary):
         
         with open('JsonData.json', 'w') as f_Out:
             
-            f_Out.write(jsonData)  # writing in .json file 
+            f_Out.write(jsonData)  
             
-            f_Out.close()  # closing .json File
+            f_Out.close() 
             return jsonData
     except json.encoder.JSONEncoder:
         print('Cannot Serializable')
@@ -73,7 +71,8 @@ def ScrapData(application_no):
                 'FirstNamedInventor': Data[16], 'IssueDateOfPatent': Data[17],
                 'FirstNamedApplicant': Data[18], 'InternationalRegistrationNumberHague': Data[19],
                 'EntityStatus': Data[20], 'InternationalRegistrationPublicationDate': Data[21],
-                'AiaFirstInventorToFile': Data[22]}
+                'AiaFirstInventorToFile': Data[22]
+                }
         
     except:
         traceback.print_exc()
@@ -84,7 +83,7 @@ def ScrapData(application_no):
 
 if __name__ == '__main__':
 	application_no = input("Enter Application No")
-	JsonStringSerialize(ScrapData(application_no))
+	json_to_database(JsonStringSerialize(ScrapData(application_no)))
 
 """
 APPLICATION_NO = driver.find_element_by_xpath("/html/body/table[2]/tbody/tr/td[2]/div/table/tbody/tr[3]/td/div[2]/table/tbody/tr[1]/td[2]").text
