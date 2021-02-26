@@ -7,7 +7,7 @@ import pyodbc
 import json
 import traceback
 
-def json_to_db(json_string):
+def json_to_database(json_string):
     """This Function will push json data to Database"""
     conn = pyodbc.connect('DRIVER={SQL SERVER};'
 	                  'SERVER=DESKTOP-38KI29F;'
@@ -15,23 +15,21 @@ def json_to_db(json_string):
 	                  'TRUSTED CONNECTION=yes;')
     if conn is not None:
         cursor = conn.cursor()
-        cursor.execute('EXEC prcJsonInsertData @json = ?', json_string)  # Passing Json Data to DataBase through Stored Procedure(prcJsonInserData)
+        cursor.execute('EXEC prcData @json = ?', json_string)  # Passing Json Data to DataBase through Stored Procedure(prcData)
        
         conn.close()
         
-        print('     ************** Json inserted Successful **************\n')
+        print(' Data Inserted\n')
         return True
     else:
         print('Error : %s' % 'Data Not Inserted Due to pyodbc Exception')
-        logging.error('Data Not Inserted Due to pyodbc Exception')
-        return None
 
 def JsonStringSerialize(dataDictionary):
     """This Function Will Convert Formal Parameter(dataDictionary) to json_string and Write in .json File"""
     try:
         jsonData = json.dumps(dataDictionary, indent=4)  # serialazing dataDictionary
         
-        with open('ApplicationData.json', 'w') as f_Out:
+        with open('JsonData.json', 'w') as f_Out:
             
             f_Out.write(jsonData)  # writing in .json file 
             
@@ -61,7 +59,7 @@ def ScrapData(application_no):
         
         search.send_keys(application_no)
         search.send_keys(Keys.RETURN)
-        Data = [td.get_attribute("textContent").split("\n")[0] 
+        Data = [td.text.split("\n")[0] 
                            for td in driver.find_elements_by_xpath('//td[@class="wpsTableNrmRow"]')]
    
         return {
@@ -86,7 +84,7 @@ def ScrapData(application_no):
 
 if __name__ == '__main__':
 	application_no = input("Enter Application No")
-	json_to_db(JsonStringSerialize(ScrapData(application_no)))
+	JsonStringSerialize(ScrapData(application_no))
 
 """
 APPLICATION_NO = driver.find_element_by_xpath("/html/body/table[2]/tbody/tr/td[2]/div/table/tbody/tr[3]/td/div[2]/table/tbody/tr[1]/td[2]").text
